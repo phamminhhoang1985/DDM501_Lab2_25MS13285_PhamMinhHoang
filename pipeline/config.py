@@ -24,7 +24,10 @@ DATA_PATH = Path(os.getenv("DATA_PATH", str(DATA_DIR / "credit_default.csv")))
 # =============================================================================
 # Default is a local file store, so the pipeline runs with no server at all —
 # that is what CI uses. docker-compose overrides it with the tracking server.
-MLFLOW_TRACKING_URI = os.getenv("MLFLOW_TRACKING_URI", f"file://{BASE_DIR / 'mlruns'}")
+MLFLOW_TRACKING_URI = os.getenv(
+    "MLFLOW_TRACKING_URI",
+    "file:///" + str(BASE_DIR / "mlruns").replace("\\", "/"),
+)
 MLFLOW_EXPERIMENT_NAME = os.getenv("MLFLOW_EXPERIMENT_NAME", "credit-default-risk")
 REGISTERED_MODEL_NAME = os.getenv("REGISTERED_MODEL_NAME", "credit-default-classifier")
 
